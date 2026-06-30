@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import deliveryboy from "../assets/deliberyboy.png";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,7 +30,19 @@ const Login = () => {
       email: loginData.email.toLowerCase(),
       password: loginData.password,
     };
-  };
+
+    try {
+      const res = await api.post("/auth/login", payload);
+      toast.success(res.data.message);
+      console.log(res.data.fullName);
+    } catch (error){
+      // toast.error(
+        // error.response.status + "|" + error.response?.data?.message ||
+        // error.message,
+        // )
+        toast.error("login failed")
+    }
+    }
 
   const inputClass =
     "border p-2 rounded focus:outline-none focus:ring-2 focus:ring-(--accent)";
