@@ -48,8 +48,9 @@ const Register = () => {
       const res = await api.post("/auth/register", payload);
       alert(res.data.message);
     } catch (error) {
-      console.log(res?.data?.message || error.message);
+   console.log(error.response?.data?.message || error.message);
     }
+    
   };
 
   const inputClass =
