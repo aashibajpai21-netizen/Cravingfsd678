@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import deliveryboy from "../assets/deliberyboy.png";
 import toast from "react-hot-toast";
 import api from "../config/api.config.js";
+import { useAuth } from "../Context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,14 +38,13 @@ const Login = () => {
       toast.success(res.data.message);
       console.log(res.data.fullName);
       navigate("/user/dashboard")
-    } catch (error){
-      // toast.error(
-        // error.response.status + "|" + error.response?.data?.message ||
-        // error.message,
-        // )
-        toast.error("login failed")
+    } catch (error) {
+      toast.error(
+        error.response.status + " | " + error.response?.data?.message ||
+          error.message,
+      );
     }
-    }
+  };
 
   const inputClass =
     "border p-2 rounded focus:outline-none focus:ring-2 focus:ring-(--accent)";
