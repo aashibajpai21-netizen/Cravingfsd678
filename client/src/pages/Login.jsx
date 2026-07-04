@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import deliveryboy from "../assets/deliberyboy.png";
+import api from "../config/api.config";
 import toast from "react-hot-toast";
-import api from "../config/api.config.js";
 import { useAuth } from "../Context/AuthContext";
 
 const Login = () => {
+  const { setUser, setIsLogin, isLogin } = useAuth();
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
@@ -36,11 +37,13 @@ const Login = () => {
     try {
       const res = await api.post("/auth/login", payload);
       toast.success(res.data.message);
-      console.log(res.data.fullName);
-      navigate("/user/dashboard")
+      sessionStorage.setItem("UserData", JSON.stringify(res.data.data));
+      setUser(res.data.data);
+      // setIsLogin(true);
+      navigate("/user/dashboard");
     } catch (error) {
       toast.error(
-        error.response.status + " | " + error.response?.data?.message ||
+        error.response?.status + " | " + error.response?.data?.message ||
           error.message,
       );
     }
