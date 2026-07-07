@@ -1,4 +1,3 @@
-// 
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import { genToken } from "../utils/auth.service.js";
@@ -20,7 +19,9 @@ export const RegisterUser = async (req, res, next) => {
       return next(error);
     }
 
-    const photo = `https://placehold.co/600x400?text=${fullName.charAt(0).toUpperCase()}`;
+    const photoURL = `https://placehold.co/600x400?text=${fullName.charAt(0).toUpperCase()}`;
+
+    const photo = { url: photoURL, publicId: null };
 
     const SALT = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, SALT);
@@ -67,7 +68,6 @@ export const LoginUser = async (req, res, next) => {
     }
     await genToken(existingUser, res);
 
-
     res.status(200).json({
       message: "Welcome Back",
       data: existingUser,
@@ -81,8 +81,8 @@ export const LoginUser = async (req, res, next) => {
 export const LogoutUser = async (req, res, next) => {
   try {
     //Controller Logic
-    res.clearCookie("Oreo", {maxAge: 0});
-    res.status(200).json({message: "Logout Successfully"});
+    res.clearCookie("Oreo", { maxAge: 0 });
+    res.status(200).json({ message: "Logout Successfully" });
   } catch (error) {
     console.log(error.message);
     next();

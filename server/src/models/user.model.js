@@ -33,7 +33,7 @@ const UserSchema = mongoose.Schema(
       required: true,
       },
       publicId:{
-        type:String,
+        type: String,
       },
     },
   },
