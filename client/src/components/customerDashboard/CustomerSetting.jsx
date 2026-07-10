@@ -16,10 +16,58 @@ const CustomerSetting = () => {
   const [isPasswordChangeModalOpen, setIsPasswordChangeModalOpen] = usetate(false);
 
   const [formData, setFormData] = useState({
-    fullName: user?.fullName || "",
-    
-  })
+     fullName: user?.fullName || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+  });
 
+  // Profile handlers
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      setIsLoading(true);
+
+      const payload = new FormData();
+      payload.append("fullName", formData.fullName);
+      payload.append("email", formData.email.toLowerCase());
+      payload.append("phone", formData.phone);
+
+      payload.append("displayPic", profilePic);
+
+      const response = await api.put(`/user/edit-profile`, payload);
+
+      setUser(response.data.data);
+      sessionStorage.setItem("cravingUser", JSON.stringify(response.data.data));
+
+      setEditingProfile(false);
+      toast.success("Profile updated successfully!");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to update profile");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancelProfile = () => {
+    setFormData({
+      fullName: user.fullName,
+      email: user.email,
+      phone: user.phone,
+    });
+    setProfilePicPreview(null);
+    setEditingProfile(false);
+  };
+
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    setProfilePicPreview(URL.createObjectURL(file));
+    setProfilePic(file);
+  };
+}
 
 
 
@@ -185,6 +233,14 @@ const CustomerSetting = () => {
         </div>
       </div>
     </div>
+
+     {isPasswordChangeModalOpen && (
+        <PasswordChangeModal
+          open={isPasswordChangeModalOpen}
+          onClose={() => setIsPasswordChangeModalOpen(false)}
+        />
+      )}
+      
   );
 };
 
