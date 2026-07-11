@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { MdEdit } from "react-icons/md";
+import { MdOutlineLockReset } from "react-icons/md";
 import { useAuth } from "../../Context/AuthContext";
-import api from "../../config/api.config.js";
+import api from "../../config/ApiConfig";
 import toast from "react-hot-toast";
 import { MdOutlineAddAPhoto } from "react-icons/md";
-import PasswordChangeModel from "../commomModals/PasswordChangeModal";
+import PasswordChangeModal from "../commonModals/PasswordChangeModal";
 
-
-const CustomerSetting = () => {
+const AdminSetting = () => {
   const { user, setUser } = useAuth();
-    const [editingProfile, setEditingProfile] = useState(false);
+  const [editingProfile, setEditingProfile] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
   const [profilePicPreview, setProfilePicPreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPasswordChangeModalOpen, setIsPasswordChangeModalOpen] = usetate(false);
+  const [isPasswordChangeModalOpen, setIsPasswordChangeModalOpen] =
+    useState(false);
 
   const [formData, setFormData] = useState({
-     fullName: user?.fullName || "",
+    fullName: user?.fullName || "",
     email: user?.email || "",
     phone: user?.phone || "",
   });
@@ -38,7 +39,7 @@ const CustomerSetting = () => {
 
       payload.append("displayPic", profilePic);
 
-      const response = await api.put(`/user/edit-profile`, payload);
+      const response = await api.put(`/common/edit-profile`, payload);
 
       setUser(response.data.data);
       sessionStorage.setItem("cravingUser", JSON.stringify(response.data.data));
@@ -67,9 +68,10 @@ const CustomerSetting = () => {
     setProfilePicPreview(URL.createObjectURL(file));
     setProfilePic(file);
   };
+
   return (
     <>
-     <div className="overflow-y-auto h-full p-6 space-y-6">
+      <div className="overflow-y-auto h-full p-6 space-y-6">
         {/* User Profile Section */}
         <div className="bg-(--color-base-200) rounded-lg p-6">
           <div className="flex justify-between items-center mb-4">
@@ -79,8 +81,8 @@ const CustomerSetting = () => {
                 <button
                   onClick={() => setEditingProfile(true)}
                   className="flex items-center gap-2 bg-(--color-primary) text-(--color-primary-content) px-3 py-1 rounded text-sm"
-              >
-                <MdEdit /> Edit
+                >
+                  <MdEdit /> Edit
                 </button>
                 <button
                   onClick={() => setIsPasswordChangeModalOpen(true)}
@@ -193,6 +195,5 @@ const CustomerSetting = () => {
     </>
   );
 };
-    
-export default CustomerSetting;
- 
+
+export default AdminSetting;

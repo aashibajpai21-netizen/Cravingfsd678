@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../config/api.config.js";
 import { useAuth } from "../Context/AuthContext";
+import ForgotPasswordModal1 from "../components/commonModals/ForgotPasswordModal";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const[isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useStae(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -61,6 +63,28 @@ const Login = () => {
       setIsLogin(true);
       //console.log(res.data.data.userType);
       setRole(res.data.data.userType);
+      res.data.data.userType === "retaurant " &&
+      navigate("/restaurant-dashboard");
+
+res.data.data.userType === "rider "&& navigate("/rider-dashboard");
+res.data.data.userType === "admin "&& navigate("/admin-dashboard");
+res.data.data.userType === "customer "&& navigate("/customer-dashboard");
+    } catch (error){
+      toast.error(
+        error.response?.data?.message || "Unknown error occured during registration.Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
+    };
+
+    return (
+      <>
+      <div className="h-["
+      </>
+    )
+
+
       if (res.data.data.userType === "restaurant") {
         navigate("/restaurant-dashboard");
       } else if (res.data.data.userType === "rider") {
