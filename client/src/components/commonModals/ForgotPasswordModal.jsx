@@ -9,6 +9,8 @@ const ForgotPasswordModal = ({ open, onClose }) => {
   const [formData, setFormData] = useState({
     email: "",
     otp: "",
+    newPassword: "",
+    confirmNewPassword: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +19,12 @@ const ForgotPasswordModal = ({ open, onClose }) => {
 
   const handleCloseModal = () => {
     onClose();
+    setFormData({
+      email: "",
+      otp: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    });
   };
 
   const handleChange = (e) => {
@@ -26,17 +34,35 @@ const ForgotPasswordModal = ({ open, onClose }) => {
   const handleResetPassword = async () => {
     try {
       setIsLoading(true);
-      !isOtpSent &&
-        {
-          // Send OTP
-        }(isOtpSent && !isOtpVerified) &&
-        {
-          // Verify OTP
-        }(isOtpSent && isOtpVerified) &&
-        {
-          // Reset Password
-        };
-    } catch (error) {}
+      if (!isOtpSent) {
+        const res = await api.post("/auth/verify-otp", formData);
+        toast.success(res.data.message);
+        setIsOtpVerified(true);
+        // Send OTP
+      }
+      if (isOtpSent && !isOtpVerified) {
+        const re = await api.post("/auth/verify-otp", formData);
+        toast.success(res.data.message);
+        setIsOtpVerified(true);
+        // Verify OTP
+      }
+      if (isOtpSent && isOtpVerified) {
+        const res = await api.post("/auth/reset-password", formData);
+        toast.success(res.data.message);
+        setIsOtpVerified(true);
+        handleCloseModal();
+
+        // Reset Password
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Unknown error occurred during registrtaion. Please try again.",
+      );
+    }
+    finally {
+      setIsLoading(false);
+    }
   };
 
   if (!open) return null;
@@ -68,6 +94,58 @@ const ForgotPasswordModal = ({ open, onClose }) => {
                   disabled={isLoading}
                 />
               </div>
+ {isOtpSent && (
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="otp" className="font-semibold">
+                    Your OTP
+                  </label>
+                  <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    value={formData.otp}
+                    onChange={handleChange}
+                    className="border border-(--color-secondary) rounded px-3 py-2 disabled:bg-(--color-secondary) disabled:text-(--color-secondary-content)"
+                    disabled={isLoading || isOtpVerified}
+                  />
+                </div>
+              )}
+                {isOtpSent && isOtpVerified && (
+                <>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="newPassword" className="font-semibold">
+                      Create Your New Password
+                    </label>
+                    <input
+                      type="password"
+                      id="newPassword"
+                      name="newPassword"
+                      value={formData.newPassword}
+                      onChange={handleChange}
+                      className="border border-(--color-secondary) rounded px-3 py-2 disabled:bg-(--color-secondary) disabled:text-(--color-secondary-content)"
+                      disabled={isLoading}
+                    />
+                  </div>
+
+             <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="confirmNewPassword"
+                      className="font-semibold"
+                    >
+                      Confirm Your New Password
+                    </label>
+                    <input
+                      type="text"
+                      id="confirmNewPassword"
+                      name="confirmNewPassword"
+                      value={formData.confirmNewPassword}
+                      onChange={handleChange}
+                      className="border border-(--color-secondary) rounded px-3 py-2 disabled:bg-(--color-secondary) disabled:text-(--color-secondary-content)"
+                      disabled={isLoading}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </main>
           <footer className="w-full p-4 border-t border-(--color-secondary) flex justify-end gap-3">
