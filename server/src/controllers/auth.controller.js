@@ -1,12 +1,16 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import { genToken } from "../utils/auth.service.js";
+import OTP from "../models/otp.model.js";
+
+import { genOTPToken} from "../utils/auth.service.js";
+import {sendOTPEmail} from "../utils/email.service.js";
 
 export const RegisterUser = async (req, res, next) => {
   try {
-    const { fullName, email, password, phone, gender, dob } = req.body;
+    const { fullName, email, password, phone, gender, dob, userType } = req.body;
 
-    if (!fullName || !email || !password || !phone || !gender || !dob) {
+    if (!fullName || !email || !password || !phone || !gender || !dob || !userType) {
       const error = new Error("All fields Required");
       error.statusCode = 400;
       return next(error);
@@ -34,6 +38,7 @@ export const RegisterUser = async (req, res, next) => {
       gender,
       dob,
       photo,
+      userType,
     });
 
     res.status(201).json({ message: "User Created Successfully" });
@@ -88,3 +93,31 @@ export const LogoutUser = async (req, res, next) => {
     next();
   }
 };
+
+export const SendOtp = async (req,res,next) => {
+  try {
+    const(email) = req.body;
+    if(!email){
+      const error= newError("Email is required");
+      error.statusCode=404;
+      return next(error);
+    }
+
+    const newOTP = (Math.floor(Math.random() = 1000000) + 1000000)
+    .toString()
+    .slice(0,6);
+
+    const hashedOTP = await bcrypt.hash(newOTP, 10);
+    const existingOTP = await OTP.findOne({email});
+    if(existingOTP){
+      await existingOTP.deleteOne();
+    }
+    const saveOTP = await OTP.create({
+      email,
+      otp: hashedOTP,
+    });
+    await sendOTPEmail(email,newOTP);
+
+    res.statusCode(200).json({message: `OTP sent on `${   })
+  }
+}
