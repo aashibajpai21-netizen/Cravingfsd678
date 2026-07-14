@@ -86,8 +86,9 @@ export const LoginUser = async (req, res, next) => {
 export const LogoutUser = async (req, res, next) => {
   try {
     //Controller Logic
-    res.clearCookie("Oreo", { maxAge: 0 });
-    res.status(200).json({ message: "Logout Successfully" });
+      res.clearCookie("Oreo", { maxAge: 0 });
+
+    res.status(200).json({ message: "Logout Sucessfully" });
   } catch (error) {
     console.log(error.message);
     next();
@@ -96,10 +97,17 @@ export const LogoutUser = async (req, res, next) => {
 
 export const SendOtp = async (req,res,next) => {
   try {
-    const(email) = req.body;
+    const{email} = req.body;
     if(!email){
       const error= newError("Email is required");
-      error.statusCode=404;
+      error.statusCode=400;
+      return next(error);
+    }
+
+      const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      const error = new Error("Email not registered");
+      error.statusCode = 404;
       return next(error);
     }
 
@@ -118,6 +126,70 @@ export const SendOtp = async (req,res,next) => {
     });
     await sendOTPEmail(email,newOTP);
 
-    res.statusCode(200).json({message: `OTP sent on `${   })
+res.status(200).json({ message: `OTP sent on '${email}'` });
+  } catch (error) {
+    console.log(error.message);
+    next();
   }
-}
+};
+
+export const VerifyOtp = async (req, res, next) => {
+  try {
+    const { email, otp } = req.body;
+
+    if (!email) {
+      const error = new Error("Email is required");
+      error.statusCode = 400;
+      return next(error);
+    }
+
+    const existingOTP = await OTP.findOne({ email });
+    if (!existingOTP) {
+      const error = new Error("OTP Expired");
+      const statusCode = 401;
+      return next(error);
+    }
+
+    const isVerified = await bcrypt.compare(otp, existingOTP.otp);
+    if (!isVerified) {
+      const error = new Error("OTP Expired");
+      const statusCode = 401;
+      return next(error);
+    }
+
+    await existingOTP.deleteOne();
+
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      const error = new Error("Email not registered");
+      error.statusCode = 404;
+      return next(error);
+    }
+
+    await genOTPToken(existingUser, res);
+    res
+      .status(200)
+      .json({ message: "OTP verified. Create You New Password Now" });
+  } catch (error) {
+    console.log(error.message);
+    next();
+  }
+};
+export const ResetPassword = async (req, res, next) => {
+  try {
+    const { newPassword } = req.body;
+
+    const currentUser = req.user;
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    currentUser.password = hashedPassword;
+
+    await currentUser.save();
+
+    res.status(200).json({ message: "Password Changed" });
+  } catch (error) {
+    console.log(error.message);
+    next();
+  }
+};

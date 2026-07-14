@@ -5,6 +5,8 @@ import api from "../../config/ApiConfig";
 import toast from "react-hot-toast";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import PasswordChangeModal from "../commonModals/PasswordChangeModal";
+import RunningLoader from "../../assets/runningLoader.gif";
+
 
 const RestaurantSetting = () => {
   const { user, setUser } = useAuth();
@@ -15,7 +17,7 @@ const RestaurantSetting = () => {
   const [isPasswordChangeModalOpen, setIsPasswordChangeModalOpen] =
     useState(false);
 
-  const [formData, setFormData] = useState({
+  const [profileFormData, setProfileFormData] = useState({
     fullName: user?.fullName || "",
     email: user?.email || "",
     phone: user?.phone || "",
@@ -24,7 +26,7 @@ const RestaurantSetting = () => {
   // Profile handlers
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setProfileFormData({ ...profileFormData, [name]: value });
   };
 
   const handleSaveProfile = async () => {
@@ -53,7 +55,7 @@ const RestaurantSetting = () => {
   };
 
   const handleCancelProfile = () => {
-    setFormData({
+    setProfileFormData({
       fullName: user.fullName,
       email: user.email,
       phone: user.phone,
@@ -67,6 +69,57 @@ const RestaurantSetting = () => {
     setProfilePicPreview(URL.createObjectURL(file));
     setProfilePic(file);
   };
+
+const handleCancelRestaurant = () => {
+    setRestaurantFormData({
+      restaurantName: restaurantData?.restaurantName || "",
+      address: restaurantData?.address || "",
+      city: restaurantData?.city || "",
+      state: restaurantData?.state || "",
+      pinCode: restaurantData?.pinCode || "",
+      country: restaurantData?.country || "",
+      description: restaurantData?.description || "",
+      restaurantType: restaurantData?.restaurantType || "",
+      cuisineTypes: restaurantData?.cuisineTypes?.join(", ") || "",
+      isOpen: restaurantData?.isOpen || false,
+      contactEmail: restaurantData?.contactDetails?.email || "",
+      contactPhone: restaurantData?.contactDetails?.phone || "",
+      openingTime: restaurantData?.servingHours?.openingTime || "",
+      closingTime: restaurantData?.servingHours?.closingTime || "",
+      geoLat: restaurantData?.geoLocation?.lat || "",
+      geoLon: restaurantData?.geoLocation?.lon || "",
+      socialMediaLinks: restaurantData?.socialMediaLinks || [],
+    });
+    setEditingRestaurant(false);
+  };
+
+ const fetchRestaurantData = async () => {
+    try {
+      setIsLoadingRestaurant(true);
+
+      const res = await api.get(
+        `/restaurant/get-resturant-data?id=${user._id}`,
+      );
+      setRestaurantData(res.data.data);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Unknown error occurred fetching restaurant. Please try again.",
+      );
+      setLoadingRestaurantError(
+        error.response?.data?.message ||
+          "Unknown error occurred fetching restaurant. Please try again.",
+      );
+    } finally {
+      setIsLoadingRestaurant(false);
+    }
+  };
+
+  useEffect(() => {
+    // fetchRestaurantData();
+  }, [user]);
+
+
 
   return (
     <>
@@ -142,40 +195,42 @@ const RestaurantSetting = () => {
               </div>
 
               <div className="space-y-4 w-full">
-                <div className="grid grid-cols-5 gap-2 justify-center items-center">
-                  <label className="block text-sm font-semibold mb-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <label className=" text-xs font-semibold ">
                     Full Name
                   </label>
                   <input
                     type="text"
                     name="fullName"
-                    value={formData.fullName}
+                    value={profileFormData.fullName}
                     onChange={handleProfileChange}
-                    className={`w-full px-3 py-2 border ${editingProfile ? "border-(--color-secondary)" : "border-transparent"} rounded col-span-4`}
+                    className={`w-full px-1.5 py-1 border border-(--color-secondary) ${editingProfile ? "bg-(--color-base-100)" : "bg-(--color-base-200)"} rounded`}
                     disabled={!editingProfile}
                   />
-
-                  <label className="block text-sm font-semibold mb-2">
+                 </div>
+                 <div className="w-full">
+                  <label className=" text-xs font-semibold ">
                     Email
                   </label>
                   <input
                     type="email"
                     name="email"
-                    value={formData.email}
+                    value={profileFormData.fullName}
                     onChange={handleProfileChange}
-                    className={`w-full px-3 py-2 border ${editingProfile ? "border-(--color-secondary) text-(--color-secondary) disabled:bg-(--color-secondary)/50 cursor-not-allowed" : "border-transparent"} rounded col-span-4`}
-                    disabled
+                    className={`w-full px-1.5 py-1 border border-(--color-secondary) ${editingProfile ? "bg-(--color-base-100)" : "bg-(--color-base-200)"} rounded `}
+                    disabled={!editingProfile}
                   />
-
-                  <label className="block text-sm font-semibold mb-2">
-                    Phone
+                  </div>
+                  <div className="w-full">
+                  <label className="text-xs font-semibold ">
+                    Email
                   </label>
                   <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
+                    type="email"
+                    name="email"
+                    value={profileFormData.email}
                     onChange={handleProfileChange}
-                    className={`w-full px-3 py-2 border ${editingProfile ? "border-(--color-secondary)" : "border-transparent"} rounded col-span-4`}
+                    className={`w-full px-1.5 py-1 border  border-(--color-secondary) disabled:bg-(--secondary) cursor-not-allowed  rounded`}
                     disabled={!editingProfile}
                   />
                 </div>
