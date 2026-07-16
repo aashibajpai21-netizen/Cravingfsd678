@@ -13,17 +13,6 @@ export const AuthProtect = async (req, res, next) => {
       return next(error);
     }
 
-
-
-
-
-
-
-
-
-
-
-    
  console.log("Token From MiddleWare : ", token);
 
     const decode = await jwt.verify(token, process.env.JWT_SECRET);
