@@ -15,6 +15,10 @@ export const EditUserProfile = async (req,resizeBy,next) => {
             return next(error);
         }
 
+
+
+
+        
         const existingUser = await User.findOne({email});
         if(!existingUser){
             const error = new Error("Email not registered");
