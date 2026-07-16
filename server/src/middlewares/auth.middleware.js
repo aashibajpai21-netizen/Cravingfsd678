@@ -12,6 +12,18 @@ export const AuthProtect = async (req, res, next) => {
       error.statusCode = 401;
       return next(error);
     }
+
+
+
+
+
+
+
+
+
+
+
+    
  console.log("Token From MiddleWare : ", token);
 
     const decode = await jwt.verify(token, process.env.JWT_SECRET);
