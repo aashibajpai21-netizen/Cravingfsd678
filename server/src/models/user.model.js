@@ -29,12 +29,18 @@ const UserSchema = mongoose.Schema(
     },
     photo: {
       url: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
       },
-      publicId:{
+      publicId: {
         type: String,
       },
+    },
+    userType: {
+      type: String,
+      enum: ["admin", "customer", "rider", "restaurant"],
+      required: true,
+      default: "customer",
     },
   },
   {
