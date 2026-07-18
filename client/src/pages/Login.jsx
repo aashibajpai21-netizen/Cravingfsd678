@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../config/api.config.js";
 import { useAuth } from "../Context/AuthContext";
-import ForgotPasswordModal1 from "../components/commonModals/ForgotPasswordModal";
+import ForgotPasswordModal from "../components/commonModals/ForgotPasswordModal";
 
 const Login = () => {
   const navigate = useNavigate();

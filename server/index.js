@@ -8,8 +8,8 @@ import PublicRouter from "./src/routers/public.route.js";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import CommonRouter from "./src/router/common.route.js";
-import RestaurantRouter from "./src/router/restaurant.route.js";
+import CommonRouter from "./src/routers/common.route.js";
+import RestaurantRouter from "./src/routers/restaurant.route.js";
 const app = express();
 
 app.use(cors({ origin: "http://localhost:5173" ,credentials:true}));
