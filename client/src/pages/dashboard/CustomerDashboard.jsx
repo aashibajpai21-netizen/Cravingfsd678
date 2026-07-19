@@ -7,12 +7,12 @@ import { useLocation , useNavigate} from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
 const CustomerDashboard = () => {
-  const { isLogin } = useAuth();
+  const { isLogin,role } = useAuth();
   const navigate = useNavigate();
   const active = useLocation().state?.activeTab;
   const [activeTab, setActiveTab] = React.useState(active || "overview");
 
-  if (!isLogi || role!=="customer") {
+  if (!isLogin || role!=="customer") {
     return (
       <div className="h-[92vh] bg-[url('/foodTable.webp')]  bg-cover bg-center">
         <div className="h-full backdrop-blur-lg flex flex-col items-center justify-center ">

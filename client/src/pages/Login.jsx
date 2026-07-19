@@ -21,7 +21,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const[isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useStae(false);
+  const[isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -61,9 +61,9 @@ const Login = () => {
       sessionStorage.setItem("cravingUser", JSON.stringify(res.data.data));
       setUser(res.data.data);
       setIsLogin(true);
-      //console.log(res.data.data.userType);
-      setRole(res.data.data.userType);
-      res.data.data.userType === "retaurant " &&
+      console.log(res.data.data.userType);
+      //setRole(res.data.data.userType);
+      res.data.data.userType === "restaurant" &&
       navigate("/restaurant-dashboard");
 
 res.data.data.userType === "rider "&& navigate("/rider-dashboard");
