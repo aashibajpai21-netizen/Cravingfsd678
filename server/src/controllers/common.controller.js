@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import cloudinary from "../config/cloudinary.config.js";
 import bcrypt from "bcrypt";
 
-export const EditUserProfile = async (req,resizeBy,next) => {
+export const EditUserProfile = async (req,res,next) => {
     try {
         const {email,fullName,phone}=req.body;
         const newPhoto = req.file;

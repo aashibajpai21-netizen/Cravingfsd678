@@ -2,14 +2,14 @@
 import cloudinary from "./src/config/cloudinary.config.js";
 import express from "express";
 import connectDB from "./src/config/dbConnection.config.js";
-import AuthRouter from "./src/routers/auth.route.js";
-import PublicRouter from "./src/routers/public.route.js";
+import AuthRouter from "./src/router/auth.route.js";
+import PublicRouter from "./src/router/public.route.js";
 
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import CommonRouter from "./src/routers/common.route.js";
-import RestaurantRouter from "./src/routers/restaurant.route.js";
+import CommonRouter from "./src/router/common.route.js";
+import RestaurantRouter from "./src/router/restaurant.route.js";
 const app = express();
 
 app.use(cors({ origin: "http://localhost:5173" ,credentials:true}));

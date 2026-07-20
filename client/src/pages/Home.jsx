@@ -9,8 +9,8 @@ import {
   MdLunchDining,
 } from "react-icons/md";
 import CarouselComponent from "../components/CarouselComponent";
-import { useAuth } from "../Context/AuthContext";
-import api from "../config/api.config.js";
+import { useAuth } from "../context/AuthContext";
+import api from "../config/api.config";
 
 const Home = () => {
   const navigate = useNavigate();
