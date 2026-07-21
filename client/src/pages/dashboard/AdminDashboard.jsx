@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import AdminSetting from "../../components/adminDashboard/AdminSetting";
 import AdminSidebar from "../../components/adminDashboard/AdminSidebar";
 import AdminOverview from "../../components/adminDashboard/AdminOverview";

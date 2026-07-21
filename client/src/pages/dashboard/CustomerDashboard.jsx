@@ -4,7 +4,7 @@ import CustomerOverview from "../../components/customerDashboard/CustomerOvervie
 import CustomerOrders from "../../components/customerDashboard/CustomerOrders";
 import CustomerSetting from "../../components/customerDashboard/CustomerSetting";
 import { useLocation , useNavigate} from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const CustomerDashboard = () => {
   const { isLogin,role } = useAuth();

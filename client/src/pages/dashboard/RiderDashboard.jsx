@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import RiderSidebar from "../../components/riderDashboard/RiderSidebar";
 import RiderOverview from "../../components/riderDashboard/RiderOverview";
 import RiderOrders from "../../components/riderDashboard/RiderOrders";

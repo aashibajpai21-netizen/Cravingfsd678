@@ -10,11 +10,12 @@ import {
 } from "react-icons/md";
 import CarouselComponent from "../components/CarouselComponent";
 import { useAuth } from "../context/AuthContext";
-import api from "../config/api.config";
+import api from "../config/api.config"; 
 
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);

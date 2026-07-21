@@ -2,7 +2,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoLight from "../assets/carousel/transparentLogoLight.png";
-import { useAuth } from "../Context/AuthContext";
+import { useAuth } from "../context/AuthContext.jsx";
 import { FaPowerOff } from "react-icons/fa";
 import toast from "react-hot-toast";
 import api from "../config/api.config.js";

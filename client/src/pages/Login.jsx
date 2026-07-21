@@ -1,11 +1,10 @@
-
 // export default Login;
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../config/api.config.js";
-import { useAuth } from "../Context/AuthContext";
+import { useAuth } from "../context/AuthContext.jsx";
 import ForgotPasswordModal from "../components/commonModals/ForgotPasswordModal";
 
 const Login = () => {
@@ -21,7 +20,8 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const[isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
+  const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] =
+    useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -64,21 +64,22 @@ const Login = () => {
       console.log(res.data.data.userType);
       //setRole(res.data.data.userType);
       res.data.data.userType === "restaurant" &&
-      navigate("/restaurant-dashboard");
+        navigate("/restaurant-dashboard");
 
-res.data.data.userType === "rider "&& navigate("/rider-dashboard");
-res.data.data.userType === "admin "&& navigate("/admin-dashboard");
-res.data.data.userType === "customer "&& navigate("/customer-dashboard");
-    } catch (error){
+      res.data.data.userType === "rider" && navigate("/rider-dashboard");
+      res.data.data.userType === "admin" && navigate("/admin-dashboard");
+      res.data.data.userType === "customer" && navigate("/customer-dashboard");
+    } catch (error) {
       toast.error(
-        error.response?.data?.message || "Unknown error occured during registration.Please try again.",
+        error.response?.data?.message ||
+          "Unknown error occured during registration.Please try again.",
       );
     } finally {
       setLoading(false);
     }
-    };
+  };
 
-     return (
+  return (
     <>
       <div className="h-[90vh] bg-[url('/foodTable.webp')] flex items-center justify-start bg-cover bg-center p-10 md:ps-30">
         <div className="bg-white rounded-lg shadow-md px-10 py-6 max-w-md w-full">
@@ -217,6 +218,3 @@ res.data.data.userType === "customer "&& navigate("/customer-dashboard");
 };
 
 export default Login;
-
-
-     
