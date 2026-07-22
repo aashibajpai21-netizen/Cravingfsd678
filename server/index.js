@@ -4,12 +4,15 @@ import express from "express";
 import connectDB from "./src/config/dbConnection.config.js";
 import AuthRouter from "./src/router/auth.route.js";
 import PublicRouter from "./src/router/public.route.js";
-
+import AdminRouter from "./src/router/admin.route.js";
+import RestaurantRouter from "./src/router/restaurant.route.js";
+import CustomerRouter from "./src/router/customer.route.js";
+import RiderRouter from "./src/router/rider.route.js";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import CommonRouter from "./src/router/common.route.js";
-import RestaurantRouter from "./src/router/restaurant.route.js";
+
 const app = express();
 
 app.use(cors({ origin: "http://localhost:5173" ,credentials:true}));
@@ -20,7 +23,10 @@ app.use(morgan("dev"));
 app.use("/auth", AuthRouter);
 app.use("/public", PublicRouter);
 app.use("/common", CommonRouter);
+app.use("/admin", AdminRouter);
 app.use("/restaurant", RestaurantRouter);
+app.use("/customer", CustomerRouter);
+app.use("/rider", RiderRouter);
 
 
 //Default API
