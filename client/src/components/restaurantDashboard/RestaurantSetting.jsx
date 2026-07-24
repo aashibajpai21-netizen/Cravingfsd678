@@ -124,15 +124,13 @@ const RestaurantSetting = () => {
           </div>
         </div>
 
-        {isLoadingRestaurant ? (
-          <img src={Loader} alt="" className="w-50 h-10" />
-        ) : (
+        
           <div className="h-full rounded-lg bg-(--color-base-200) p-2">
             {activeTab === "information" && <Information />}
             {activeTab === "coreDetails" && <ResturantCoreDetails />}
             {activeTab === "photos" && <RestaurantPhotos />}
           </div>
-        )}
+      
       </div>
     </>
   );

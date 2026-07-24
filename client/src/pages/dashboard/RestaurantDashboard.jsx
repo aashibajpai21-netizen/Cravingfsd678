@@ -44,6 +44,8 @@ const RestaurantDashboard = () => {
           {activeTab === "overview" && <RestaurantOverview />}
           {activeTab === "orders" && <RestaurantOrders />}
           {activeTab === "settings" && <RestaurantSetting />}
+          {activeTab === "menu" && <RestaurantMenu />}
+
         </div>
       </div>
     </>
