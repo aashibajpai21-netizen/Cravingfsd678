@@ -593,8 +593,12 @@ export const RestaurantDeleteMenuItem = async (req, res, next) => {
     const { existingMenu, menuItem } = context;
     menuItem.isDeleted = true;
     menuItem.status = "discontinued";
+    
     existingMenu.markModified("menuItems");
     await existingMenu.save();
+
+
+
     return res.status(200).json({
       message: "Menu item deleted successfully",
       data: menuItem,

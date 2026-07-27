@@ -78,6 +78,4 @@ router.delete(
   RestaurantDeleteMenuItem,
 );
 
-
-
 export default router;
