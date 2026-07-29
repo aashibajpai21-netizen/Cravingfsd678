@@ -29,8 +29,6 @@ const NoDataFound = ({ height, width, text }) => {
 
 
 
-
-      llllllllllllllllllllllllllllllllllll
     </>
   );
 };
