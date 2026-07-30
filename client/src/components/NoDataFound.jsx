@@ -22,13 +22,6 @@ const NoDataFound = ({ height, width, text }) => {
         </div>
       </div>
 
-
-
-
-
-
-
-
     </>
   );
 };
