@@ -57,7 +57,7 @@ const Home = () => {
           closingHours: restaurant.closingHours,
         }));
 
-        setRestaurants(formattedRestaurants);
+         setRestaurants(formattedRestaurants);
         setFilteredRestaurants(formattedRestaurants);
       } catch (error) {
         console.error("Error loading restaurants:", error);
@@ -88,7 +88,7 @@ const Home = () => {
       );
     }
 
-  
+    // Filter by category (map to cuisine types)
     if (selectedCategory !== "all") {
       const categoryMap = {
         veg: "vegetarian",
@@ -108,17 +108,17 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      
+      {/* Hero Section with Carousel Background */}
       <section className="relative text-(--color-primary-content) py-16 md:py-40 overflow-hidden">
-  
+        {/* Carousel Background */}
         <div className="absolute inset-0 z-0">
           <CarouselComponent />
         </div>
 
-    
+        {/* Dark Overlay for better text visibility */}
         <div className="absolute inset-0 bg-black/40 z-10"></div>
 
-        
+        {/* Hero Content */}
         <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -130,14 +130,15 @@ const Home = () => {
               Order from thousands of restaurants and get it delivered to your
               doorstep
             </p>
-            {!user && (
+            
               <div className="flex gap-4 justify-center">
-                <button
+               {!user && ( <button
                   onClick={() => navigate("/register/customer")}
                   className="bg-(--color-primary) text-(--color-primary-content) px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition"
                 >
                   Sign Up
                 </button>
+                )}
                 <button
                   onClick={() => navigate("/order-now")}
                   className="bg-(--color-base-100) text-(--color-base-content) px-8 py-3 rounded-lg font-semibold hover:bg-(--color-base-200) transition"
@@ -145,10 +146,10 @@ const Home = () => {
                   Order Now
                 </button>
               </div>
-            )}
+            
           </div>
 
-      
+          {/* Search and Location Bar */}
 
           <div className="flex items-center bg-(--color-base-100) rounded-lg px-4 py-3 max-w-4xl mx-auto">
             <IoSearch className="text-(--color-base-content) text-xl mr-3" />
@@ -163,10 +164,10 @@ const Home = () => {
         </div>
       </section>
 
-    
+      {/* Main Content */}
       <section className="py-4 md:py-8 bg-linear-to-b from-(--color-primary) to-(--color-primary-content)">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    
+          {/* Results Header */}
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-(--color-primary-content) mb-2">
               {selectedCategory === "all"
@@ -179,7 +180,7 @@ const Home = () => {
             </p>
           </div>
 
-          
+          {/* Restaurants Grid */}
           {loading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-(--color-primary)"></div>
@@ -195,7 +196,7 @@ const Home = () => {
                   onClick={() => navigate(`/restaurant-menu/${restaurant.id}`)}
                   className="flex flex-col bg-(--color-base-100) rounded-xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer transform hover:scale-105"
                 >
-                
+                  {/* Restaurant Image */}
                   <div className="relative h-48 overflow-hidden bg-(--color-base-200)">
                     <img
                       src={restaurant.image}
@@ -208,7 +209,7 @@ const Home = () => {
                     </div>
                   </div>
 
-              
+                  {/* Restaurant Info */}
                   <div className="flex flex-col flex-1 p-4">
                     <h3 className="font-bold text-(--color-content) text-lg mb-1">
                       {restaurant.name}
@@ -217,7 +218,7 @@ const Home = () => {
                       {restaurant.description}
                     </p>
 
-                    
+                    {/* Cuisines */}
                     <div className="flex flex-wrap gap-2 mb-3">
                       {restaurant.cuisines.split(",").map((cuisine, idx) => (
                         <span
@@ -229,7 +230,7 @@ const Home = () => {
                       ))}
                     </div>
 
-                
+                    {/* Footer Info */}
                     <div className="mt-auto pt-3 border-t border-(--color-base-200)">
                       <button
                         onClick={(e) => {
@@ -264,7 +265,7 @@ const Home = () => {
         </div>
       </section>
 
-    
+      {/* Statistics Section */}
       <section className="bg-(--color-base-100) py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -277,7 +278,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
+            {/* Successful Deliveries */}
             <div className="bg-white rounded-lg p-8 shadow-md hover:shadow-lg transition text-center">
               <div className="mb-4">
                 <div className="text-4xl md:text-5xl font-bold text-(--color-primary) mb-2">
@@ -292,7 +293,7 @@ const Home = () => {
               </p>
             </div>
 
-            
+            {/* Happy Customers */}
             <div className="bg-white rounded-lg p-8 shadow-md hover:shadow-lg transition text-center">
               <div className="mb-4">
                 <div className="text-4xl md:text-5xl font-bold text-(--color-accent) mb-2">
@@ -307,7 +308,7 @@ const Home = () => {
               </p>
             </div>
 
-            
+            {/* Partner Restaurants */}
             <div className="bg-white rounded-lg p-8 shadow-md hover:shadow-lg transition text-center">
               <div className="mb-4">
                 <div className="text-4xl md:text-5xl font-bold text-(--color-primary) mb-2">
@@ -322,7 +323,7 @@ const Home = () => {
               </p>
             </div>
 
-            
+            {/* Available Partners */}
             <div className="bg-white rounded-lg p-8 shadow-md hover:shadow-lg transition text-center">
               <div className="mb-4">
                 <div className="text-4xl md:text-5xl font-bold text-(--color-accent) mb-2">
@@ -340,7 +341,7 @@ const Home = () => {
         </div>
       </section>
 
-
+      {/* Customer Feedback & Reviews Section */}
       <section className="bg-white py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -353,7 +354,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
+            {/* Review Card 1 */}
             <div className="bg-(--color-base-100) rounded-lg p-8 shadow-md hover:shadow-lg transition">
               <div className="flex items-center gap-2 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -382,7 +383,7 @@ const Home = () => {
               </div>
             </div>
 
-          
+            {/* Review Card 2 */}
             <div className="bg-(--color-base-100) rounded-lg p-8 shadow-md hover:shadow-lg transition">
               <div className="flex items-center gap-2 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -411,7 +412,7 @@ const Home = () => {
               </div>
             </div>
 
-          
+            {/* Review Card 3 */}
             <div className="bg-(--color-base-100) rounded-lg p-8 shadow-md hover:shadow-lg transition">
               <div className="flex items-center gap-2 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -443,7 +444,7 @@ const Home = () => {
         </div>
       </section>
 
-      
+      {/* CTA Section */}
       <section className="bg-(--color-primary) text-(--color-primary-content) py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
