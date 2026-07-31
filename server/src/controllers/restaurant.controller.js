@@ -1,4 +1,5 @@
 import Restaurant from "../models/restaurant.model.js";
+
 import {
   uploadMultipleImages,
   deleteMultipleImages,
@@ -465,6 +466,8 @@ const getMenuContext = async (currentUser, itemId, next) => {
   const existingRestaurant = await Restaurant.findOne({
     managerId: currentUser._id,
   });
+
+  
   if (!existingRestaurant) {
     const error = new Error("Restaurant Not Found");
     error.statusCode = 404;

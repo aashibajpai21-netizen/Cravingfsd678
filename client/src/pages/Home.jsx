@@ -15,7 +15,6 @@ import api from "../config/api.config";
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  
   const [searchQuery, setSearchQuery] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -57,7 +56,7 @@ const Home = () => {
           closingHours: restaurant.closingHours,
         }));
 
-         setRestaurants(formattedRestaurants);
+        setRestaurants(formattedRestaurants);
         setFilteredRestaurants(formattedRestaurants);
       } catch (error) {
         console.error("Error loading restaurants:", error);
