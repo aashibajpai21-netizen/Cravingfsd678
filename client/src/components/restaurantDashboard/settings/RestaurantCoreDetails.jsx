@@ -16,6 +16,23 @@ const ResturantCoreDetails = () => {
     useState(false);
 
   // Restaurant handlers
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
   const [isLoadingRestaurant, setIsLoadingRestaurant] = useState(false);
   const [loadingRestaurantError, setLoadingRestaurantError] = useState(null);
   const [restaurantData, setRestaurantData] = useState();
