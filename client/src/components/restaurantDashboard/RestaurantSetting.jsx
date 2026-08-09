@@ -3,12 +3,11 @@ import api from "../../config/api.config";
 import toast from "react-hot-toast";
 import { RiLoader4Fill } from "react-icons/ri";
 import { useAuth } from "../../context/AuthContext";
-import Information from "./settings/RestaurantInformation";
-import ResturantCoreDetails from "./settings/RestaurantCoreDetails";
+import CoreDetails from ".settings/coreDetails/Index";
+import Information from "./settings/restaurantInformation/Index";
 import RestaurantPhotos from "./settings/RestaurantPhotos";
-import Loader from "../../assets/runningLoader.gif";
+import Loader from "../../components/Loader";
 import { IoMdHammer } from "react-icons/io";
-
 
 const RestaurantSetting = () => {
   const { user } = useAuth();
