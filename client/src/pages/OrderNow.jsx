@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../config/ApiConfig";
+import api from "../config/api.config";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 import NoDataFound from "../components/NoDataFound";
@@ -115,7 +115,7 @@ const OrderNow = () => {
           className="absolute inset-0 w-full h-full object-cover object-center scale-105"
         />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/50 to-black/70" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/50 to-black/70" />
 
         {/* Floating food icons */}
         <FaUtensils className="absolute top-8 left-10 text-white/10 text-6xl rotate-12 hidden md:block" />
@@ -218,7 +218,7 @@ const OrderNow = () => {
                     alt={restaurant.restaurantName}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
 
                   {/* Open / Closed */}
                   <span
