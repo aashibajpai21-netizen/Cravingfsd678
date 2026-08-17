@@ -6,7 +6,7 @@ import { useCart } from "../context/CartContext";
 import { FaPowerOff } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
-import api from "../config/ApiConfig";
+import api from "../config/api.config";
 
 const Navbar = () => {
   const { user, isLogin, role, setUser, setIsLogin, setRole } = useAuth();

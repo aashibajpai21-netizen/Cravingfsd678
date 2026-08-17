@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { FaRegFileImage } from "react-icons/fa";
 import toast from "react-hot-toast";
-import api from "../../../config/ApiConfig";
+import api from "../../../config/api.config";
 
 const itemCategories = [
   "Appetizer",

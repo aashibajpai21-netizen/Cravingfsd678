@@ -10,8 +10,8 @@ import RestaurantInfoStrip from "../components/publicRestaurantDetails/Restauran
 import RestaurantAbout from "../components/publicRestaurantDetails/RestaurantAbout";
 import RestaurantGallery from "../components/publicRestaurantDetails/RestaurantGallery";
 import RestaurantContact from "../components/publicRestaurantDetails/RestaurantContact";
-import RestaurantSocialLinks from "../components/publicRestaurantDetailsPage/RestaurantSocialLinks";
-import RestaurantMenu from "../components/publicRestaurantDetails/RestaurantMenu";
+import RestaurantSocialLinks from "../components/publicRestaurantDetailsPage/RestaurantSocialMediaLinks";
+import RestaurantMenu from "../components/publicRestaurantDetailsPage/RestaurantMenu";
 
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../../context/AuthContext";
 import { MdEdit } from "react-icons/md";
-import api from "../../../../config/ApiConfig";
+import api from "../../../../config/api.config";
 import toast from "react-hot-toast";
 
 const RestaurantInformation = () => {
