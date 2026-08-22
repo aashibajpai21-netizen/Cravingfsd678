@@ -10,8 +10,12 @@ import RestaurantInfoStrip from "../components/publicRestaurantDetails/Restauran
 import RestaurantAbout from "../components/publicRestaurantDetails/RestaurantAbout";
 import RestaurantGallery from "../components/publicRestaurantDetails/RestaurantGallery";
 import RestaurantContact from "../components/publicRestaurantDetails/RestaurantContact";
-import RestaurantSocialLinks from "../components/publicRestaurantDetailsPage/RestaurantSocialMediaLinks";
-import RestaurantMenu from "../components/publicRestaurantDetailsPage/RestaurantMenu";
+import RestaurantSocialLinks from "../components/publicRestaurantDetails/RestaurantSocialLinks";
+import RestaurantMenu from "../components/publicRestaurantDetails/RestaurantMenu";
+import { useCart } from "../context/CartContext";
+
+
+
 
 
 
