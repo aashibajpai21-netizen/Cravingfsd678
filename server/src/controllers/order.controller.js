@@ -1,24 +1,6 @@
 import Customer from "../models/customer.model.js";
 import Menu from "../models/menu.model.js";
 import Order from "../models/order.model.js";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const getDefaultDeliveryAddress = (currentUser) => {
   return {
     name: currentUser.fullName,
